@@ -52,7 +52,8 @@ David James <david@jamesgang.com>
 
 =head1 SEE ALSO
 
-L<Lingua::EN::Segmenter::Baseline>, L<Lingua::EN::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::Baseline>, L<Lingua::EN::Segmenter::Evaluator>,
+L<http://www.cs.toronto.edu/~james>
 
 =head1 LICENSE
 
@@ -63,7 +64,7 @@ L<Lingua::EN::Segmenter::Baseline>, L<Lingua::EN::Segmenter::Evaluator>
 
 =cut
 
-$VERSION = 0.07;
+$VERSION = 0.09;
 @EXPORT_OK = qw(
     segment
     segments

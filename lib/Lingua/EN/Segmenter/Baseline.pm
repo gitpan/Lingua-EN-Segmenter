@@ -23,7 +23,8 @@ David James <david@jamesgang.com>
 
 =head1 SEE ALSO
 
-L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>,
+L<http://www.cs.toronto.edu/~james>
 
 =head1 LICENSE
 
@@ -34,7 +35,7 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>
   
 =cut
 
-$VERSION = 0.05;
+$VERSION = 0.09;
 use base 'Lingua::EN::Segmenter::TextTiling';    
 use strict;
 

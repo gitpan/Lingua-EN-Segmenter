@@ -36,16 +36,18 @@ David James <david@jamesgang.com>
 
 =head1 SEE ALSO
 
-L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>,
+L<http://www.cs.toronto.edu/~james>
 
 =cut
 
 
-$VERSION = 0.04;
+$VERSION = 0.09;
 @EXPORT_OK = qw(evaluate_segmenter calc_stats);
 use strict;
 use base 'Class::Exporter';
 use Math::HashSum qw(hashsum);
+my $AUTHOR = 'David James <david@jamesgang.com>';
 
 # Create a new Evaluator object
 sub new {
@@ -58,14 +60,14 @@ sub new {
 
 # Evaluate the segmenter on a particular input
 sub evaluate_segmenter {
-    my ($self, $segmenter, $num_segments, $input) = @_;
+    my ($self, $segmenter, $input) = @_;
     
     $self->{taken} = {}; 
        
     my $num_paragraphs = @{$segmenter->{splitter}->paragraph_breaks($input)};
 
     my $break = $self->{break} = $segmenter->{splitter}->segment_breaks($input);
-    my $assigned = $self->{assigned} = $segmenter->segment($num_segments, $input);
+    my $assigned = $self->{assigned} = $segmenter->segment(scalar keys %{$break}, $input);
     
     my @description = map { {
         para=>$_,
@@ -139,23 +141,29 @@ sub take {
     return;
 }
 
-
 # Calculate precision and recall for strict, relaxed, very_relaxed
 sub calc_stats {    
     my $self = shift;
     my %sum = hashsum map { %$_ } @_;
 
-    # Ensure relaxed counts don't double-count
-    $sum{relaxed} -= ($sum{relaxed} - $sum{strict})/2;
-    $sum{very_relaxed} -= ($sum{very_relaxed} - $sum{strict})/2;
-
     # Ensure "R" and "L" count as categories
     $sum{label} = grep { $_->{label} } @_;
 
-    return map { 100*$sum{$_}/$sum{true}, 100*$sum{$_}/$sum{label} } 
+    # Ensure relaxed counts don't double-count
+    $sum{relaxed} -= ($sum{relaxed} - $sum{strict})/2;
+    $sum{very_relaxed} -= ($sum{very_relaxed} - $sum{strict})/2;
+    
+    # Sanity checks
+    if ($sum{true} == 0) {
+        die "No segment_breaks found. Please label the true segments in the original text so that we can evaluate the performance of the Segmenting algorithm";
+    } elsif ($sum{label} == 0) {
+        die "No segments labelled by Segmenting algorithm";
+    }
+
+    # Return results 
+    return map { 100*$sum{$_}/$sum{true}, 100*$sum{$_} / $sum{label} } 
         qw(strict relaxed very_relaxed);
 }
-
 
 1;
 

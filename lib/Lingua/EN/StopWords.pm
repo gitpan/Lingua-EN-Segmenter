@@ -28,7 +28,7 @@ L<http://www.askeric.org/Eric/Help/stop.shtml>
 =head1 SEE ALSO
     
 L<Lingua::EN::Segmenter::TextTiling>,  L<Lingua::EN::Segmenter::Baseline>, 
-L<Lingua::EN::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::Evaluator>, L<http://www.cs.toronto.edu/~james>
 
 =head1 LICENSE
 
@@ -40,7 +40,7 @@ L<Lingua::EN::Segmenter::Evaluator>
 =cut
 
 @EXPORT_OK = qw(%StopWords);
-$VERSION = 0.04;
+$VERSION = 0.09;
 use base 'Exporter';
 
 %StopWords = map { lc $_, 1 } qw(
@@ -58,7 +58,7 @@ pp quite rather really said seem self selves several shall she should since so
 some somebody somewhat still such than that the their theirs them themselves 
 then there therefore these they this thorough thoroughly those through thus to 
 together too toward towards under until up upon v very was well were what 
-whatever when whenever where whether which while who whom whose will with within 
-without would yet young your yourself );
+whatever when whenever where whether which while who whom whose will with
+within without would yet young your yourself );
 
 1;

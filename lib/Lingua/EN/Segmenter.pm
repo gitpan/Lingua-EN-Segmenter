@@ -25,7 +25,7 @@ David James <david@jamesgang.com>
 =head1 SEE ALSO
     
 L<Lingua::EN::Segmenter::TextTiling>,  L<Lingua::EN::Segmenter::Baseline>, 
-L<Lingua::EN::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::Evaluator>, L<http://www.cs.toronto.edu/~james>
 
 =head1 LICENSE
 
@@ -36,7 +36,7 @@ L<Lingua::EN::Segmenter::Evaluator>
   
 =cut
 
-$VERSION = 0.08;
+$VERSION = 0.09;
 @EXPORT_OK = qw(
     set_tokens_per_tile
     set_paragraph_regexp
@@ -74,10 +74,10 @@ sub segments {
     my @segment_breaks = sort { $a <=> $b } keys %{$segment_breaks};
     my @paragraphs = @{$self->{splitter}->paragraphs($input)};
     my @segments;
-    my $last_segment = 0;
-    foreach (@segment_breaks,$#paragraphs+1) {
+    my $last_segment = -1;
+    foreach (@segment_breaks,$#paragraphs) {
         next if $last_segment == $_;
-        push @segments, join "\n\n", @paragraphs[$last_segment..$_-1];
+        push @segments, join "\n\n", @paragraphs[$last_segment+1..$_];
         $last_segment = $_;
     }
     return @segments;
@@ -91,7 +91,7 @@ sub segments {
 
 sub set_min_segment_size {
     my $self = shift;
-    $self->{MIN_SEGMENTS_SIZE} = shift;
+    $self->{MIN_SEGMENT_SIZE} = shift;
 }
 
 sub set_tokens_per_tile {

@@ -58,11 +58,12 @@ David James <david@jamesgang.com>
 
 =head1 SEE ALSO
 
-L<Lingua::EN::Segmenter::TextTiling>, L<Class::Exporter>
+L<Lingua::EN::Segmenter::TextTiling>, L<Class::Exporter>, 
+L<http://www.cs.toronto.edu/~james>
 
 =cut
 
-$VERSION = 0.05;
+$VERSION = 0.09;
 @EXPORT_OK = qw(
     words 
     paragraphs 
@@ -112,7 +113,7 @@ sub words {
 sub paragraphs {
     my ($self, $input) = @_;
     return [ 
-        grep { $_ and !/^segment_break$/i } 
+        grep { /\S/ and !/^segment_break$/i } 
         split /$self->{PARAGRAPH_BREAK}/i, $input 
     ];
 }
@@ -121,13 +122,20 @@ sub paragraphs {
 sub breaks {
     my $self = shift;
     my $input = lc shift;
-    $input =~ s/$self->{PARAGRAPH_BREAK}/ PNO$1 /g;
-    my @words = split /$self->{NON_WORD_CHARACTER}+/, $input;
-    my (@breaks,%segment_breaks,$num_words);
     
+    # Eliminate empty paragraphs at the very end
+    $input =~ s/$self->{PARAGRAPH_BREAK}\s*\Z//;
+
+    # Convert paragraph breaks to tokens
+    $input =~ s/$self->{PARAGRAPH_BREAK}/ PNO$1 /g;
+
+    my @words = split /(?:$self->{NON_WORD_CHARACTER})+/, $input;
+    my (@breaks,%segment_breaks,$num_words);
+   
     foreach (@words) {
         if (/^PNO(segment_break)?$/) {
-            $1 and $segment_breaks{scalar @breaks}++; 
+            my $segment_break = $1;
+            $segment_break and $segment_breaks{scalar @breaks}++; 
             push @breaks, $num_words / $self->{TOKENS_PER_TILE};
         } else {
             $num_words++;

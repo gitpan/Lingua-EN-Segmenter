@@ -17,7 +17,9 @@ my @VERBOSE = $VERBOSE ? (VERBOSE=>1) : ();
 my $baseline_segmenter = Lingua::EN::Segmenter::Baseline->new();
 my $tiling_segmenter = Lingua::EN::Segmenter::TextTiling->new(@VERBOSE);
 $baseline_segmenter->set_paragraph_regexp(qr/<p no=\d+ ?(segment_break)?>/);
+$baseline_segmenter->set_min_segment_size(2);
 $tiling_segmenter->set_paragraph_regexp(qr/<p no=\d+ ?(segment_break)?>/);
+$tiling_segmenter->set_min_segment_size(2);
 set_paragraph_regexp(qr/<p no=\d+ ?(segment_break)?>/);
 
 my (@baseline, @tiling);
@@ -37,9 +39,9 @@ my %segment_stats;
 foreach (@ARGV) {
     my $input = read_file($_);
     print "\nFile name: $_\n\n";
- 
-    my %label = map { $_->{para}=>$_ } evaluate_segmenter($tiling_segmenter,20,$input);
-    my %baseline = map { $_->{para}=>$_ } evaluate_segmenter($baseline_segmenter,20,$input);
+    
+    my %label = map { $_->{para}=>$_ } evaluate_segmenter($tiling_segmenter,$input);
+    my %baseline = map { $_->{para}=>$_ } evaluate_segmenter($baseline_segmenter,$input);
       
     # Verbose output of labels 
     if ($VERBOSE) {

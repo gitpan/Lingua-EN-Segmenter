@@ -9,6 +9,7 @@ eg/Segment/S08
 eg/Segment/S09
 eg/Segment/S10
 eg/segmenter.pl
+eg/example2.pl
 lib/Lingua/EN/Segmenter/Baseline.pm
 lib/Lingua/EN/Segmenter/Evaluator.pm
 lib/Lingua/EN/Segmenter/TextTiling.pm
@@ -21,3 +22,4 @@ MANIFEST
 README
 t/Lingua-EN-Segmenter-TextTiling.t
 t/lib/ExtUtils/AutoInstall.pm
+META.yml                                 Module meta-data (added by MakeMaker)
