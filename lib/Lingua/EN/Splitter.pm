@@ -10,7 +10,7 @@ Lingua::EN::Splitter - Split text into words, paragraphs, segments, and tiles
                               segment_breaks tiles set_tokens_per_tile);
   
   my $text = <<EOT;
-  Lingua::EN::Segmenter is a useful module that allows text to be split up 
+  Lingua::EN::Splitter is a useful module that allows text to be split up 
   into words, paragraphs, segments, and tiles.
   
   Paragraphs are by default indicated by blank lines. Known segment breaks are
@@ -62,11 +62,13 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Class::Exporter>
 
 =cut
 
-$VERSION = 0.02;
+$VERSION = 0.03;
 @EXPORT_OK = qw(
     words 
     paragraphs 
     breaks 
+    paragraph_breaks
+    segment_breaks
     
     set_tokens_per_tile
     set_paragraph_regexp

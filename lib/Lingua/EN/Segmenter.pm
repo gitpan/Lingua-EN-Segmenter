@@ -2,11 +2,11 @@ package Lingua::EN::Segmenter;
 
 =head1 NAME
     
-Lingua::EN::Segmenter - Abstract base class for text segmentation 
+Lingua::EN::Segmenter - Subdivide texts into passages that represent subtopics
 
 =head1 SYNOPSIS
     
-Don't directly use this module. Use Lingua::Segmenter::TextTiling instead.
+Don't directly use this module. Use L<Lingua::EN::Segmenter::TextTiling> instead.
         
 =head1 DESCRIPTION
     
@@ -14,9 +14,9 @@ See synopsis.
 
 =head1 EXTENDING
 
-Lingua::Segmenter::TextTiling inherits from this module. If you want to
+L<Lingua::EN::Segmenter::TextTiling> inherits from this module. If you want to
 segment text using a method other than text tiling, create a different module
-under Lingua::Segmenter::* and inherit from this module.
+under Lingua::EN::Segmenter::* and inherit from this module.
 
 =head1 AUTHORS
     
@@ -24,8 +24,8 @@ David James <david@jamesgang.com>
     
 =head1 SEE ALSO
     
-L<Lingua::Segmenter::TextTiling>,  L<Lingua::Segmenter::Baseline>, 
-L<Lingua::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::TextTiling>,  L<Lingua::EN::Segmenter::Baseline>, 
+L<Lingua::EN::Segmenter::Evaluator>
 
 =head1 LICENSE
 
@@ -36,7 +36,7 @@ L<Lingua::Segmenter::Evaluator>
   
 =cut
 
-$VERSION = 0.02;
+$VERSION = 0.03;
 @EXPORT_OK = qw(
     set_tokens_per_tile
     set_paragraph_regexp
@@ -57,7 +57,7 @@ use Carp qw(croak);
 sub new {
     my $class = shift;
     bless {
-        MIN_SEGMENT_SIZE=>1,
+        MIN_SEGMENT_SIZE=>2,
         splitter=>Lingua::EN::Splitter->new,
         @_
     }, $class

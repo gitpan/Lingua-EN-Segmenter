@@ -1,2 +1,5 @@
+0.03 -- Pruned stopword list
+        Fixed very relaxed scoring in Lingua::EN::Evaluator.
+        Documentation bugfixes
 0.02 -- Now works on Windows. Also fixed docs for Lingua::EN::Splitter.
 0.01 -- Initial Release

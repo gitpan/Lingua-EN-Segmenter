@@ -3,7 +3,7 @@
 use Lingua::EN::Segmenter::TextTiling;
 use Lingua::EN::Segmenter::Baseline;
 use Lingua::EN::Segmenter::Evaluator qw(evaluate_segmenter);
-use Lingua::EN::Splitter;
+use Lingua::EN::Splitter qw(paragraph_breaks set_paragraph_regexp);
 use Math::HashSum qw(hashsum);
 
 use File::Slurp;
@@ -19,6 +19,7 @@ my $baseline_segmenter = Lingua::EN::Segmenter::Baseline->new();
 my $tiling_segmenter = Lingua::EN::Segmenter::TextTiling->new(@VERBOSE);
 $baseline_segmenter->set_paragraph_regexp(qr/<p no=\d+ ?(segment_break)?>/);
 $tiling_segmenter->set_paragraph_regexp(qr/<p no=\d+ ?(segment_break)?>/);
+set_paragraph_regexp(qr/<p no=\d+ ?(segment_break)?>/);
 
 my (@baseline, @tiling);
 
@@ -43,8 +44,7 @@ foreach (@ARGV) {
       
     # Verbose output of labels 
     if ($VERBOSE) {
-        my $splitter = new Lingua::EN::Splitter();
-        my $num_paragraphs = @{$splitter->paragraph_breaks($input)};
+        my $num_paragraphs = @{paragraph_breaks($input)};
 
         print "Para  True  Label  Str  Rel  VRel  Bsln  Str  Rel  VRel\n";
         

@@ -63,7 +63,7 @@ L<Lingua::EN::Segmenter::Baseline>, L<Lingua::EN::Segmenter::Evaluator>
 
 =cut
 
-$VERSION = 0.01;
+$VERSION = 0.03;
 @EXPORT_OK = qw(
     segment
     segments

@@ -27,7 +27,7 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>
 =cut
 
 
-$VERSION = 0.01;
+$VERSION = 0.03;
 @EXPORT_OK = qw(evaluate_segmenter);
 use strict;
 use base 'Class::Exporter';
@@ -65,6 +65,7 @@ sub evaluate_segmenter {
 }
 
 # Get the weight of a particular index based on a relaxed scheme
+# NOTE: Assumes that MIN_SEGMENT_SIZE >= 2
 sub relaxed_weight {
     my ($self, $i) = @_;
     my $assigned = $self->{assigned}{$i};
@@ -95,6 +96,7 @@ sub relaxed_weight {
 }
 
 # Get the weight of a particular index based on a very relaxed scheme
+# NOTE: Assumes that MIN_SEGMENT_SIZE >= 2
 sub very_relaxed_weight {
     my ($self, $i) = @_;
     my $assigned = $self->{assigned}{$i};
