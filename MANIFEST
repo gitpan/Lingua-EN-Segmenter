@@ -20,4 +20,4 @@ CHANGES
 MANIFEST
 README
 t/Lingua-EN-Segmenter-TextTiling.t
-install/ExtUtils/AutoInstall.pm
+t/lib/ExtUtils/AutoInstall.pm

@@ -2,7 +2,7 @@
 # - Set the $PACKAGE variable to the name of your module.
 # - Fill in your dependencies under ExtUtils::AutoInstall
 
-use lib './install';
+use lib './t/lib';
 use ExtUtils::AutoInstall(
     -core => [
         'File::Slurp'=>0,
