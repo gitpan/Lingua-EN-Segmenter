@@ -18,6 +18,7 @@ lib/Lingua/EN/StopWords.pm
 Makefile.PL
 MANIFEST
 README
+CHANGES
 t/Lingua-EN-Segmenter-TextTiling.t
 t/lib/Test/Builder.pm
 t/lib/Test/More.pm

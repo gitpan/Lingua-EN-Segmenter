@@ -2,7 +2,7 @@ package Lingua::EN::Splitter;
 
 =head1 NAME
 
-Lingua::EN::Segmenter - Split text into words, paragraphs, segments, and tiles
+Lingua::EN::Splitter - Split text into words, paragraphs, segments, and tiles
 
 =head1 SYNOPSIS
 
@@ -62,7 +62,7 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Class::Exporter>
 
 =cut
 
-$VERSION = 0.01;
+$VERSION = 0.02;
 @EXPORT_OK = qw(
     words 
     paragraphs 

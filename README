@@ -1,7 +1,7 @@
 Perl Module Lingua::EN::Segmenter - 0.01
 
 This module currently implements two methods for segmenting text:
-1. Lingua::EN::Segmenter::TextTiling -- Basic segmenting using text tiling method
+1. Lingua::EN::Segmenter::TextTiling -- Basic segmenting using text tiling
 2. Lingua::EN::Segmenter::Baseline -- Random segmenting
 
      Copyright (c) 2002 David James

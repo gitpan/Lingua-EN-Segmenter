@@ -42,17 +42,21 @@ held by Iraqi forces arrived by helicopter at a base south of Baghdad and were
 transferred to a C-130 transport plane headed for Kuwait, CNN's Bob Franken 
 reported from the scene.");
 
-my $segment_evaluator;
-my $segments;
+my $OS = $Config::Config{'osname'};
+
+my $dir;
+
 if (-e "eg/segmenter.pl") {
-    $segment_evaluator = "eg/segmenter.pl";
-    $segments = "eg/Segment/S*";
+    $dir = ".";
 } elsif (-e "../eg/segmenter.pl") {
-    $segment_evaluator = "../eg/segmenter.pl";
-    $segments = "../eg/Segment/S*";
+    $dir = "..";
 } else {
     die "Could not find eg/segmenter.pl!";
 }
+
+my $segment_evaluator = "$dir/eg/segmenter.pl";
+my $segments = join " ", map { "$dir/eg/Segment/$_" } 
+    qw(S01 S02 S03 S04 S05 S06 S07 S08 S09 S10);
 
 warn("\n# Testing segmenter against database, this will take some time\n");
 
