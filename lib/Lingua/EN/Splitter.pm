@@ -62,7 +62,7 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Class::Exporter>
 
 =cut
 
-$VERSION = 0.03;
+$VERSION = 0.05;
 @EXPORT_OK = qw(
     words 
     paragraphs 
@@ -88,11 +88,13 @@ no warnings;
 # Create a new instance of this object
 sub new {
     my $class = shift;
+    my $stemmer = Lingua::Stem->new;
+    $stemmer->stem_caching({ -level=>2 });
     bless {
         PARAGRAPH_BREAK=>qr/\n\s*(segment_break)?\s*\n/,
         NON_WORD_CHARACTER=>qr/\W/,
         TOKENS_PER_TILE=>20,
-        STEMMER=>Lingua::Stem->new,
+        STEMMER=>$stemmer,
         STOP_WORDS=>\%StopWords,
         @_
     }, $class;

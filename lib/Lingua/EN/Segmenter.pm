@@ -36,7 +36,7 @@ L<Lingua::EN::Segmenter::Evaluator>
   
 =cut
 
-$VERSION = 0.04;
+$VERSION = 0.05;
 @EXPORT_OK = qw(
     set_tokens_per_tile
     set_paragraph_regexp

@@ -63,7 +63,7 @@ L<Lingua::EN::Segmenter::Baseline>, L<Lingua::EN::Segmenter::Evaluator>
 
 =cut
 
-$VERSION = 0.03;
+$VERSION = 0.05;
 @EXPORT_OK = qw(
     segment
     segments
@@ -77,7 +77,7 @@ $VERSION = 0.03;
 );
 
 use Math::Vector::SortIndexes qw(sort_indexes_descending);
-use Math::VecStat qw(average min);
+use Math::VecStat qw(average min sum);
 use Math::HashSum qw(hashsum);
 
 use base 'Lingua::EN::Segmenter';
@@ -209,12 +209,10 @@ sub gap_scores {
         my %l = hashsum map { %$_ } @tiles[$L..$i-1];
         my %r = hashsum map { %$_ } @tiles[$i..$R];
         my %all = map { %$_ } @tiles[$L..$R];
-        my %sum = hashsum map {(
-            numerator=>$l{$_}*$r{$_}, 
-            denom1=>$l{$_}*$l{$_},
-            denom2=>$r{$_}*$r{$_}
-        )} keys %all;
-        push @score, $sum{numerator}/sqrt($sum{denom1}*$sum{denom2});
+        my $numerator = sum map { $l{$_}*$r{$_} } keys %all;
+        my $denom1 = sum map { $l{$_}*$l{$_} } keys %all;
+        my $denom2 = sum map { $r{$_}*$r{$_} } keys %all;
+        push @score, $numerator/sqrt($denom1*$denom2);
     }
     return \@score;
 }

@@ -34,14 +34,17 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>
   
 =cut
 
-$VERSION = 0.01;
+$VERSION = 0.05;
 use base 'Lingua::EN::Segmenter::TextTiling';    
 use strict;
 
 # Return random depth scores
 sub smoothed_depth_scores {
     my ($self,$input) = @_;
-    [ map { rand() } @{$self->SUPER::smoothed_depth_scores($input)} ]
+    my $words = $self->{splitter}->words($input);
+    my $tiles = $self->{splitter}->tile($words);
+    my $num_scores = @$tiles - 2*$self->{TILES_PER_BLOCK};
+    [ map { rand() } 0..$num_scores ]
 }
 
 
