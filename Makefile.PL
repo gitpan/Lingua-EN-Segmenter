@@ -28,7 +28,7 @@ WriteMakefile(
     VERSION_FROM    => "lib/$PACKAGE_FILE.pm", # finds $VERSION
     PREREQ_PM       => { 
         'File::Slurp'=>'2002.1031',
-        'Math::VecStat'=>0.06, 
+        'Math::VecStat::Fixed'=>0.07, 
         'Lingua::Stem'=>0.60, 
         'Class::Exporter'=>0.03,
         'Math::HashSum'=>0.01,

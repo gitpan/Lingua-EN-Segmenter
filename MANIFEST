@@ -16,6 +16,7 @@ lib/Lingua/EN/Segmenter.pm
 lib/Lingua/EN/Splitter.pm
 lib/Lingua/EN/StopWords.pm
 Makefile.PL
+CHANGES
 MANIFEST
 README
 t/Lingua-EN-Segmenter-TextTiling.t

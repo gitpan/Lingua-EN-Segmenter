@@ -1,0 +1,10 @@
+0.06 -- Switched dependency to Math::VecStat::Fixed because it is more
+        portable than Math::VecStat.
+0.05 -- Improved TextTiling performance. Added stem-caching.
+0.04 -- Moved calc_stats from segmenter.pl example to Lingua::EN::Evaluator
+        Added documentation to Lingua::EN::Evaluator and Lingua::EN::StopWords 
+0.03 -- Pruned stopword list
+        Fixed very relaxed scoring in Lingua::EN::Evaluator.
+        Documentation bugfixes
+0.02 -- Now works on Windows. Also fixed docs for Lingua::EN::Splitter.
+0.01 -- Initial Release
