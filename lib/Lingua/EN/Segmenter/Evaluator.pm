@@ -5,16 +5,30 @@ package Lingua::EN::Segmenter::Evaluator;
 Lingua::EN::Segmenter::Evaluator - Evaluate a segmenting method
 
 =head1 SYNOPSIS
+ 
+    my $tiling_segmenter = Lingua::EN::Segmenter::TextTiling->new();
 
-See L<Lingua::EN::Segmenter::TextTiling>
+    foreach (@ARGV) {
+        my $input = read_file($_);
+
+        print "\nFile name: $_\n";
+
+        printf "Results from TextTiling algorithm:
+      Strict scoring:       %2d%% recall, %2d%% precision
+      Relaxed scoring:      %2d%% recall, %2d%% precision
+      V. relaxed scoring:   %2d%% recall, %2d%% precision
+    ", calc_stats(evaluate_segmenter($tiling_segmenter,20,$input));
+    }
 
 =head1 DESCRIPTION
 
-See L<Lingua::EN::Segmenter::TextTiling>
+See synopsis.
 
-=head1 EXTENDING
+Also check out segmenter.pl in the eg directory.
 
-See L<Lingua::EN::Segmenter::TextTiling>
+=head1 BUGS
+
+This module only works correctly when the segmenter has a MIN_SEGMENT_SIZE >= 2.
 
 =head1 AUTHORS
 
@@ -27,10 +41,11 @@ L<Lingua::EN::Segmenter::TextTiling>, L<Lingua::EN::Segmenter::Evaluator>
 =cut
 
 
-$VERSION = 0.03;
-@EXPORT_OK = qw(evaluate_segmenter);
+$VERSION = 0.04;
+@EXPORT_OK = qw(evaluate_segmenter calc_stats);
 use strict;
 use base 'Class::Exporter';
+use Math::HashSum qw(hashsum);
 
 # Create a new Evaluator object
 sub new {
@@ -122,6 +137,23 @@ sub take {
         }
     }
     return;
+}
+
+
+# Calculate precision and recall for strict, relaxed, very_relaxed
+sub calc_stats {    
+    my $self = shift;
+    my %sum = hashsum map { %$_ } @_;
+
+    # Ensure relaxed counts don't double-count
+    $sum{relaxed} -= ($sum{relaxed} - $sum{strict})/2;
+    $sum{very_relaxed} -= ($sum{very_relaxed} - $sum{strict})/2;
+
+    # Ensure "R" and "L" count as categories
+    $sum{label} = grep { $_->{label} } @_;
+
+    return map { 100*$sum{$_}/$sum{true}, 100*$sum{$_}/$sum{label} } 
+        qw(strict relaxed very_relaxed);
 }
 
 

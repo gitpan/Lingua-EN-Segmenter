@@ -8,7 +8,10 @@ Lingua::EN::StopWords - Typical stop words for an English corpus
 
   use Lingua::EN::StopWords qw(%StopWords);
   
-  ... now use %StopWords as you please ...
+  my @words = ...;
+  
+  # Print non-stopwords in @words
+  print join " ", grep { !$StopWords{$_} } @words; 
   
 =head1 DESCRIPTION
     
@@ -24,8 +27,8 @@ L<http://www.askeric.org/Eric/Help/stop.shtml>
 
 =head1 SEE ALSO
     
-L<Lingua::Segmenter::TextTiling>,  L<Lingua::Segmenter::Baseline>, 
-L<Lingua::Segmenter::Evaluator>
+L<Lingua::EN::Segmenter::TextTiling>,  L<Lingua::EN::Segmenter::Baseline>, 
+L<Lingua::EN::Segmenter::Evaluator>
 
 =head1 LICENSE
 
@@ -37,7 +40,7 @@ L<Lingua::Segmenter::Evaluator>
 =cut
 
 @EXPORT_OK = qw(%StopWords);
-$VERSION = 0.01;
+$VERSION = 0.04;
 use base 'Exporter';
 
 %StopWords = map { lc $_, 1 } qw(

@@ -2,9 +2,8 @@
 
 use Lingua::EN::Segmenter::TextTiling;
 use Lingua::EN::Segmenter::Baseline;
-use Lingua::EN::Segmenter::Evaluator qw(evaluate_segmenter);
+use Lingua::EN::Segmenter::Evaluator qw(evaluate_segmenter calc_stats);
 use Lingua::EN::Splitter qw(paragraph_breaks set_paragraph_regexp);
-use Math::HashSum qw(hashsum);
 
 use File::Slurp;
 use strict;
@@ -98,25 +97,6 @@ Average results from baseline (random) algorithm:
   Relaxed scoring:       Average recall = %4.1f%%, average precision = %4.1f%%
   V. relaxed scoring:    Average recall = %4.1f%%, average precision = %4.1f%%
 ", calc_stats(@tiling), calc_stats(@baseline);    
-
-
-#############################################################################
-# Calculate precision and recall for strict, relaxed, very_relaxed
-#############################################################################
-sub calc_stats {    
-    my %sum = hashsum map { %$_ } @_;
-
-    # Ensure relaxed counts don't double-count
-    $sum{relaxed} -= ($sum{relaxed} - $sum{strict})/2;
-    $sum{very_relaxed} -= ($sum{very_relaxed} - $sum{strict})/2;
-
-    # Ensure "R" and "L" count as categories
-    $sum{label} = grep { $_->{label} } @_;
-
-
-    return map { 100*$sum{$_}/$sum{true}, 100*$sum{$_}/$sum{label} } 
-        qw(strict relaxed very_relaxed);
-}
 
 
 # Convert labels into preferred format
