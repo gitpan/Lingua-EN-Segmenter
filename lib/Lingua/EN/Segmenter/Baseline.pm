@@ -19,7 +19,7 @@ See L<Lingua::EN::Segmenter::TextTiling>
 
 =head1 AUTHORS
 
-David James <david@jamesgang.com>
+David James <splice@cpan.org>
 
 =head1 SEE ALSO
 
@@ -35,7 +35,7 @@ L<http://www.cs.toronto.edu/~james>
   
 =cut
 
-$VERSION = 0.09;
+$VERSION = 0.10;
 use base 'Lingua::EN::Segmenter::TextTiling';    
 use strict;
 

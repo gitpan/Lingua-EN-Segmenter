@@ -19,7 +19,7 @@ See synopsis.
 
 =head1 AUTHORS
     
-David James <david@jamesgang.com>
+David James <splice@cpan.org>
     
 The stopword list was taken from 
 L<http://www.askeric.org/Eric/Help/stop.shtml> 
@@ -40,7 +40,7 @@ L<Lingua::EN::Segmenter::Evaluator>, L<http://www.cs.toronto.edu/~james>
 =cut
 
 @EXPORT_OK = qw(%StopWords);
-$VERSION = 0.09;
+$VERSION = 0.10;
 use base 'Exporter';
 
 %StopWords = map { lc $_, 1 } qw(

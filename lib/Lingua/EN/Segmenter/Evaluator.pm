@@ -32,7 +32,7 @@ This module only works correctly when the segmenter has a MIN_SEGMENT_SIZE >= 2.
 
 =head1 AUTHORS
 
-David James <david@jamesgang.com>
+David James <splice@cpan.org>
 
 =head1 SEE ALSO
 
@@ -42,12 +42,11 @@ L<http://www.cs.toronto.edu/~james>
 =cut
 
 
-$VERSION = 0.09;
+$VERSION = 0.10;
 @EXPORT_OK = qw(evaluate_segmenter calc_stats);
 use strict;
 use base 'Class::Exporter';
 use Math::HashSum qw(hashsum);
-my $AUTHOR = 'David James <david@jamesgang.com>';
 
 # Create a new Evaluator object
 sub new {
@@ -60,14 +59,15 @@ sub new {
 
 # Evaluate the segmenter on a particular input
 sub evaluate_segmenter {
-    my ($self, $segmenter, $input) = @_;
+    my ($self, $segmenter, $input, $num_segments) = @_;
     
     $self->{taken} = {}; 
        
     my $num_paragraphs = @{$segmenter->{splitter}->paragraph_breaks($input)};
 
     my $break = $self->{break} = $segmenter->{splitter}->segment_breaks($input);
-    my $assigned = $self->{assigned} = $segmenter->segment(scalar keys %{$break}, $input);
+    $num_segments ||= scalar keys %{$break};
+    my $assigned = $self->{assigned} = $segmenter->segment($num_segments, $input);
     
     my @description = map { {
         para=>$_,

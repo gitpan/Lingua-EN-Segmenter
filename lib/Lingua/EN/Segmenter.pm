@@ -20,7 +20,7 @@ under Lingua::EN::Segmenter::* and inherit from this module.
 
 =head1 AUTHORS
     
-David James <david@jamesgang.com>
+David James <splice@cpan.org>
     
 =head1 SEE ALSO
     
@@ -36,7 +36,7 @@ L<Lingua::EN::Segmenter::Evaluator>, L<http://www.cs.toronto.edu/~james>
   
 =cut
 
-$VERSION = 0.09;
+$VERSION = 0.10;
 @EXPORT_OK = qw(
     set_tokens_per_tile
     set_paragraph_regexp
