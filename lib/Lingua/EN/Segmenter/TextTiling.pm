@@ -63,7 +63,7 @@ L<Lingua::EN::Segmenter::Baseline>, L<Lingua::EN::Segmenter::Evaluator>
 
 =cut
 
-$VERSION = 0.06;
+$VERSION = 0.07;
 @EXPORT_OK = qw(
     segment
     segments
@@ -77,7 +77,7 @@ $VERSION = 0.06;
 );
 
 use Math::Vector::SortIndexes qw(sort_indexes_descending);
-use Math::VecStat::Fixed qw(average min sum);
+use Math::VecStat qw(average min sum);
 use Math::HashSum qw(hashsum);
 
 use base 'Lingua::EN::Segmenter';

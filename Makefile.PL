@@ -1,39 +1,34 @@
 # A template for Makefile.PL.
 # - Set the $PACKAGE variable to the name of your module.
-# - Set $LAST_API_CHANGE to reflect the last version you changed the API 
-#   of your module.
-# - Fill in your dependencies in PREREQ_PM
-# Alternatively, you can say the hell with this and use h2xs.
+# - Fill in your dependencies under ExtUtils::AutoInstall
 
-use ExtUtils::MakeMaker;
+use lib './install';
+use ExtUtils::AutoInstall(
+    -core => [
+        'File::Slurp'=>0,
+        'Math::VecStat'=>0.08, 
+        'Class::Exporter'=>0,
+        'Math::HashSum'=>0,
+        'Math::Vector::SortIndexes'=>0,
+        'Lingua::GL::Stemmer'=>0,
+        'Lingua::Stem::Snowball::Da'=>0,
+        'Lingua::PT::Stemmer'=>0,
+        'Lingua::Stem::It'=>0,
+        'Text::German'=>0,
+        'Lingua::Stem::Snowball::No'=>0,
+        'Lingua::Stem::Snowball::Se'=>0,
+        'Lingua::Stem'=>0.60, 
+        'Test::Harness'=>2.03,
+        'Test::Simple'=>0.45
+    ]
+);
 
 $PACKAGE = 'Lingua::EN::Segmenter';
 ($PACKAGE_FILE = $PACKAGE) =~ s|::|/|g;
-$LAST_API_CHANGE = 0;
-
-eval "require $PACKAGE";
-
-unless ($@) { # Make sure we did find the module.
-    print <<"CHANGE_WARN" if ${$PACKAGE.'::VERSION'} < $LAST_API_CHANGE;
-
-NOTE: There have been API changes between this version and any older
-than version $LAST_API_CHANGE!  Please read the Changes file if you
-are upgrading from a version older than $LAST_API_CHANGE.
-
-CHANGE_WARN
-}
 
 WriteMakefile(
     NAME            => $PACKAGE,
     VERSION_FROM    => "lib/$PACKAGE_FILE.pm", # finds $VERSION
-    PREREQ_PM       => { 
-        'File::Slurp'=>'2002.1031',
-        'Math::VecStat::Fixed'=>0.07, 
-        'Lingua::Stem'=>0.60, 
-        'Class::Exporter'=>0.03,
-        'Math::HashSum'=>0.01,
-        'Math::Vector::SortIndexes'=>0.01
-    },
     'dist'          => { COMPRESS   => 'gzip -9',
                          SUFFIX     => '.gz',
                          DIST_DEFAULT   => 'all tardist',
@@ -41,27 +36,3 @@ WriteMakefile(
 );
 
 
-{
-    package MY;
-
-    sub test_via_harness {
-        my($self, $orig_perl, $tests) = @_;
-
-        my @perls = ($orig_perl);
-        push @perls, qw(bleadperl 
-                        perl5.6.1
-                        perl5.6.0
-                        perl5.005_03 
-                        perl5.004_05 
-                        perl5.004_04
-                        perl5.004)
-          if $ENV{PERL_TEST_ALL};
-
-        my $out;
-        foreach my $perl (@perls) {
-            $out .= $self->SUPER::test_via_harness($perl, $tests);
-        }
-
-        return $out;
-    }
-}

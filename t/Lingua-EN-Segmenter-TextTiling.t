@@ -1,6 +1,5 @@
 #!/usr/bin/perl -w
 
-use lib qw(t/lib);
 use strict;
 use Config;
 
@@ -58,11 +57,9 @@ my $segment_evaluator = "$dir/eg/segmenter.pl";
 my $segments = join " ", map { "$dir/eg/Segment/$_" } 
     qw(S01 S02 S03 S04 S05 S06 S07 S08 S09 S10);
 
-warn("\n# Testing segmenter against database, this will take some time\n");
-
 my $evaluation = `$Config{perlpath} -Mlib=lib -Mlib=../lib -Mlib=t/lib $segment_evaluator $segments`;
 $evaluation =~ m/Average recall = ([\d\.]+)%, average precision = ([\d\.]+)%/;
 my $recall = $1;
 my $precision = $2;
-ok($recall>60, "Recall on large database is greater than 60%");
-ok($precision>57, "Recall on large database is greater than 57%");
+ok($recall>63, "Recall on large database is greater than 60%");
+ok($precision>59, "Recall on large database is greater than 57%");

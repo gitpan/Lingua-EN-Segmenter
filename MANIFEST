@@ -20,6 +20,4 @@ CHANGES
 MANIFEST
 README
 t/Lingua-EN-Segmenter-TextTiling.t
-t/lib/Test/Builder.pm
-t/lib/Test/More.pm
-t/lib/Test/Simple.pm
+install/ExtUtils/AutoInstall.pm
